@@ -6,6 +6,7 @@ from urllib.parse import urlparse
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from test import get_noticia
+import os
 
 # Ignore SSL certificate errors
 ctx = ssl.create_default_context()
@@ -15,8 +16,8 @@ from datetime import date
 
 today=date.today()
 
-
-conn = sqlite3.connect("data/noticias.sqlite")
+print(os.getcwd())
+conn = sqlite3.connect("../data/noticias.sqlite")
 cur = conn.cursor()
 
 
@@ -38,9 +39,8 @@ conn.commit()
 cur.execute('''CREATE TABLE IF NOT EXISTS dias_ejecutados
     (id INTEGER PRIMARY KEY, ex_dt DATETIME, portal_noticias_id INTEGER)''')
 
-cur.execute('''CREATE TABLE IF NOT EXISTS noticias
-            (id INTEGER PRIMARY KEY, portal_noticias_id INT, url TEXT UNIQUE,
-             contenido TEXT, html TEXT)''')
+cur.execute('''CREATE TABLE IF NOT EXISTS noticias_raw
+            (id INTEGER PRIMARY KEY, portal_noticias_id INT, url TEXT UNIQUE, html TEXT)''')
 
 
 #cur.execute('''CREATE TABLE IF NOT EXISTS noticias
@@ -68,7 +68,7 @@ print(webs)
 
 many = 0
 for url, id_portal in webs:
-    
+    print(url,id_portal)
     try:
         document = urlopen(url, context=ctx)
 
@@ -117,13 +117,8 @@ for url, id_portal in webs:
                 break
         if not found : continue
         print(href)
-        
-        try:
-            parrafos=get_noticia(href)
-            parrafos=" ".join(parrafos)
-        except:
-            parrafos="error"
-        cur.execute('INSERT OR IGNORE INTO noticias (portal_noticias_id,url, contenido, html) VALUES ( ?, ?, ?, ? )', ( id_portal, href,parrafos,html ) )
+    
+        cur.execute('INSERT OR IGNORE INTO noticias_raw (portal_noticias_id,url, html) VALUES ( ?, ?, ? )', ( id_portal, href,html ) )
         count = count + 1
         conn.commit()
     cur.execute("""INSERT OR IGNORE INTO dias_ejecutados (ex_dt ,portal_noticias_id) 
