@@ -117,8 +117,12 @@ for url, id_portal in webs:
                 break
         if not found : continue
         print(href)
-    
-        cur.execute('INSERT OR IGNORE INTO noticias_raw (portal_noticias_id,url, html) VALUES ( ?, ?, ? )', ( id_portal, href,html ) )
+        try:
+            document = urlopen(href, context=ctx)
+            html_page = document.read()
+        except:
+            continue
+        cur.execute('INSERT OR IGNORE INTO noticias_raw (portal_noticias_id,url, html) VALUES ( ?, ?, ? )', ( id_portal, href,html_page) )
         count = count + 1
         conn.commit()
     cur.execute("""INSERT OR IGNORE INTO dias_ejecutados (ex_dt ,portal_noticias_id) 
