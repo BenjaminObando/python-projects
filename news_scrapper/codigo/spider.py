@@ -16,8 +16,8 @@ from datetime import date
 
 today=date.today()
 
-print(os.getcwd())
-conn = sqlite3.connect("../data/noticias.sqlite")
+#print(os.getcwd())
+conn = sqlite3.connect(r"../data/noticias.sqlite")
 cur = conn.cursor()
 
 
@@ -43,9 +43,9 @@ cur.execute('''CREATE TABLE IF NOT EXISTS noticias_raw
             (id INTEGER PRIMARY KEY, portal_noticias_id INT, url TEXT UNIQUE, html TEXT)''')
 
 
-#cur.execute('''CREATE TABLE IF NOT EXISTS noticias
-#    (id INTEGER PRIMARY KEY, titulo TEXT,portal_noticias_id INTEGER, url TEXT UNIQUE,
-#     descripcion TEXT, contenido TEXT, error TEXT, html TEXT)''')
+cur.execute('''CREATE TABLE IF NOT EXISTS noticias
+    (id INTEGER PRIMARY KEY, titulo TEXT,portal_noticias_id INTEGER, url TEXT UNIQUE,
+     descripcion TEXT, contenido TEXT, error TEXT, html TEXT)''')
 
 # Check to see if we are already in progress...
 

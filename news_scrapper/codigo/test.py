@@ -37,11 +37,11 @@ def get_noticia(url):
             lista_span.append(body_child.getText())    
     return(lista_span)
 
-url="https://www.emol.com/noticias/Nacional/2020/04/10/982731/Gobierno-variables-cuarentena-coronavirus-Chile.html"
-url="https://www.emol.com/noticias/Nacional/2020/04/10/982724/Gobierno-Coronavirus-Balance.html"
-url="https://www.emol.com/noticias/Nacional/2020/04/11/982770/Minsal-Coronavirus-Balance.html"
-url="https://www.latercera.com/mundo/noticia/oms-advierte-sobre-peligro-de-levantar-restricciones/RPABRLQNH5BXPAEU2WG3JEFLFA/"
-get_noticia(url)
+#url="https://www.emol.com/noticias/Nacional/2020/04/10/982731/Gobierno-variables-cuarentena-coronavirus-Chile.html"
+#url="https://www.emol.com/noticias/Nacional/2020/04/10/982724/Gobierno-Coronavirus-Balance.html"
+#url="https://www.emol.com/noticias/Nacional/2020/04/11/982770/Minsal-Coronavirus-Balance.html"
+#url="https://www.latercera.com/mundo/noticia/oms-advierte-sobre-peligro-de-levantar-restricciones/RPABRLQNH5BXPAEU2WG3JEFLFA/"
+#print(get_noticia(url))
     
 #text = 'gfgfdAAA1234ZZZuijjk'
 
